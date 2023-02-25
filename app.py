@@ -51,10 +51,10 @@ image2 = Image.open("download (2).jpg").resize((150, 150))
 
 # Display the image and enable download
 cola.image(image, caption="Mangrove Image", use_column_width=False)
-cola.download_button(label="Download Mangrove", data=image)
+# cola.download_button(label="Download Mangrove", data=image)
 
 colb.image(image2, caption="Foggy Image", use_column_width=False)
-colb.download_button(label="Download foggy", data=image2)
+# colb.download_button(label="Download foggy", data=image2)
 
 # col1, col2, col3,col4 = st.columns(4)
 

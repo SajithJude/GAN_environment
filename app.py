@@ -30,7 +30,7 @@ image_resized = Image.fromarray(image_array).resize((150, 150))
 
 # Create a circular mask
 mask = Image.new("L", (150, 150), 0)
-draw = ImageDraw.Draw(mask)
+draw = Image.Draw(mask)
 draw.ellipse((0, 0, 150, 150), fill=255)
 
 # Apply the circular mask to the image

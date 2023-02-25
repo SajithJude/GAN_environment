@@ -39,7 +39,7 @@ style_image = st.file_uploader("Upload Image of a foggy environment")
 
 # default images
 
-st.write("Sample example images")
+st.text("#Drag and Drop example images bellow if you dont have any images to upload")
 
 cola, colb = st.columns(2)
 

@@ -4,9 +4,18 @@ import numpy as np
 import tensorflow as tf
 import tensorflow_hub as hub
 
-st.title("Fast Neural image style transfer")
-st.write("Streamlit demo for Fast arbitrary image style transfer using a pretrained Image Stylization model from TensorFlow Hub. To use it, simply upload a content image and style image. To learn more about the project, please find the references listed below.")
+st.title("Image Generation with GAN Neural style transfer for fog environments")
+st.write("By Suhith")
 
+
+# Define the profile picture
+profile_image = Image.open("264827932_747332529567316_8091726915573986136_n.jpg").resize((150, 150))
+
+# Define the sidebar content
+st.sidebar.image(profile_image, use_column_width=True)
+st.sidebar.title("Suhith")
+st.sidebar.write("Final Year Undergraduate")
+st.sidebar.write("IIT (University of Westminster)")
 # Load image stylization module.
 @st.cache(allow_output_mutation=True)
 def load_model():
@@ -29,24 +38,25 @@ content_image = st.file_uploader("Upload a content image")
 style_image = st.file_uploader("Upload a style image")
 
 # default images
+
 st.write("Or you can choose from the following examples")
-col1, col2, col3,col4 = st.columns(4)
+# col1, col2, col3,col4 = st.columns(4)
 
-if col1.button("Couple on bench"):
-  content_image = "examples/couple_on_bench.jpeg"
-  style_image = "examples/starry_night.jpeg"
+# if col1.button("Couple on bench"):
+#   content_image = "examples/couple_on_bench.jpeg"
+#   style_image = "examples/starry_night.jpeg"
 
-if col2.button("Couple Walking"):
-  content_image = "examples/couple_walking.jpeg"
-  style_image = "examples/couple_watercolor.jpeg"
+# if col2.button("Couple Walking"):
+#   content_image = "examples/couple_walking.jpeg"
+#   style_image = "examples/couple_watercolor.jpeg"
 
-if col3.button("Golden Gate Bridge"):
-  content_image = "examples/golden_gate_bridge.jpeg"
-  style_image = "examples/couple_watercolor.jpeg"
+# if col3.button("Golden Gate Bridge"):
+#   content_image = "examples/golden_gate_bridge.jpeg"
+#   style_image = "examples/couple_watercolor.jpeg"
 
-if col4.button("Joshua Tree"):
-  content_image = "examples/joshua_tree.jpeg"
-  style_image = "examples/starry_night.jpeg"
+# if col4.button("Joshua Tree"):
+#   content_image = "examples/joshua_tree.jpeg"
+#   style_image = "examples/starry_night.jpeg"
 
 
 

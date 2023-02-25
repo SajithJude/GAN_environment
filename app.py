@@ -34,12 +34,12 @@ def perform_style_transfer(content_image, style_image):
     return Image.fromarray(np.uint8(stylized_image[0] * 255))
 
 # Upload content and style images.
-content_image = st.file_uploader("Upload a content image")
-style_image = st.file_uploader("Upload a style image")
+content_image = st.file_uploader("Upload image of a Regular Environment")
+style_image = st.file_uploader("Upload Image of a foggy environment")
 
 # default images
 
-st.write("Or you can choose from the following examples")
+# st.write("Or you can choose from the following examples")
 # col1, col2, col3,col4 = st.columns(4)
 
 # if col1.button("Couple on bench"):

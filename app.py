@@ -46,10 +46,10 @@ image2 = Image.open("download (2).jpg")
 
 # Display the image and enable download
 st.image(image, caption="Mangrove Image", use_column_width=True)
-st.download_button(label="Download", data=image_file)
+st.download_button(label="Download Mangrove", data=image_file)
 
 st.image(image, caption="Foggy Image", use_column_width=True)
-st.download_button(label="Download", data=image_file)
+st.download_button(label="Download foggy", data=image_file)
 
 # col1, col2, col3,col4 = st.columns(4)
 

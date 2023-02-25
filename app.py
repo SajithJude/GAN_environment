@@ -78,9 +78,9 @@ if style_image and content_image is not None:
   st.image(output_image, use_column_width=True)
 
 # # scroll down to see the references
-# st.markdown("**References**")
+st.markdown("**Colab Notebook Links and References**")
 
-# st.markdown("<a href='https://arxiv.org/abs/1705.06830' target='_blank'>1. Exploring the structure of a real-time, arbitrary neural artistic stylization network</a>", unsafe_allow_html=True)
+st.markdown("<a href='https://colab.research.google.com/drive/1ixgyBAmz8984B4N7YW1xVWuT1aESArlW?usp=sharing' target='_blank'>Source code for Neural Network</a>", unsafe_allow_html=True)
 
 # st.markdown("<a href='https://www.tensorflow.org/hub/tutorials/tf2_arbitrary_image_stylization' target='_blank'>2. Tutorial to implement Fast Neural Style Transfer using the pretrained model from TensorFlow Hub</a>  \n", unsafe_allow_html=True)
 

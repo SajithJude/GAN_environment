@@ -39,7 +39,18 @@ style_image = st.file_uploader("Upload Image of a foggy environment")
 
 # default images
 
-# st.write("Or you can choose from the following examples")
+st.write("Sample example images")
+
+image = Image.open("download.jpg")
+image2 = Image.open("download (2).jpg")
+
+# Display the image and enable download
+st.image(image, caption="Mangrove Image", use_column_width=True)
+st.download_button(label="Download", data=image_file)
+
+st.image(image, caption="Foggy Image", use_column_width=True)
+st.download_button(label="Download", data=image_file)
+
 # col1, col2, col3,col4 = st.columns(4)
 
 # if col1.button("Couple on bench"):
@@ -67,14 +78,14 @@ if style_image and content_image is not None:
   # It is recommended that the style image is about 256 pixels (this size was used when training the style transfer network).
   style_image = Image.open(style_image).resize((256, 256))
 
-  col1.header("Content Image")
+  col1.header("Mangrove Environment")
   col1.image(content_image, use_column_width=True)
-  col2.header("Style Image")
+  col2.header("Foggy Environment")
   col2.image(style_image, use_column_width=True)
 
   output_image=perform_style_transfer(content_image, style_image)
 
-  st.header("Output: Style transfer Image")
+  st.header("Generated Output image: Style transfer")
   st.image(output_image, use_column_width=True)
 
 # # scroll down to see the references

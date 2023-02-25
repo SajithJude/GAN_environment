@@ -41,15 +41,20 @@ style_image = st.file_uploader("Upload Image of a foggy environment")
 
 st.write("Sample example images")
 
+cola, colb = st.columns(2)
+
+
+
 image = Image.open("download.jpg").resize((150, 150))
 image2 = Image.open("download (2).jpg").resize((150, 150))
-
+if cola:
 # Display the image and enable download
-st.image(image, caption="Mangrove Image", use_column_width=False)
-st.download_button(label="Download Mangrove", data="download.jpg")
+  st.image(image, caption="Mangrove Image", use_column_width=False)
+  st.download_button(label="Download Mangrove", data="download.jpg")
+if colb:
 
-st.image(image2, caption="Foggy Image", use_column_width=False)
-st.download_button(label="Download foggy", data="download (2).jpg")
+  st.image(image2, caption="Foggy Image", use_column_width=False)
+  st.download_button(label="Download foggy", data="download (2).jpg")
 
 # col1, col2, col3,col4 = st.columns(4)
 

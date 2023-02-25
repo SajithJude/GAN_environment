@@ -1,51 +1,77 @@
-import numpy as np
-import gradio as gr
+import streamlit as st
 from PIL import Image
+import numpy as np
 import tensorflow as tf
-from tensorflow import keras
-from huggingface_hub import from_pretrained_keras
+import tensorflow_hub as hub
 
+st.title("Fast Neural image style transfer")
+st.write("Streamlit demo for Fast arbitrary image style transfer using a pretrained Image Stylization model from TensorFlow Hub. To use it, simply upload a content image and style image. To learn more about the project, please find the references listed below.")
 
-model = from_pretrained_keras("keras-io/low-light-image-enhancement", compile=False)
-examples = ['got2.png', 'gotj.png', 'goti.png' ]
+# Load image stylization module.
+@st.cache(allow_output_mutation=True)
+def load_model():
+  return hub.load("https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2")
 
-def get_enhanced_image(data, output):
-    r1 = output[:, :, :, :3]
-    r2 = output[:, :, :, 3:6]
-    r3 = output[:, :, :, 6:9]
-    r4 = output[:, :, :, 9:12]
-    r5 = output[:, :, :, 12:15]
-    r6 = output[:, :, :, 15:18]
-    r7 = output[:, :, :, 18:21]
-    r8 = output[:, :, :, 21:24]
-    x = data + r1 * (tf.square(data) - data)
-    x = x + r2 * (tf.square(x) - x)
-    x = x + r3 * (tf.square(x) - x)
-    enhanced_image = x + r4 * (tf.square(x) - x)
-    x = enhanced_image + r5 * (tf.square(enhanced_image) - enhanced_image)
-    x = x + r6 * (tf.square(x) - x)
-    x = x + r7 * (tf.square(x) - x)
-    enhanced_image = x + r8 * (tf.square(x) - x)
-    return enhanced_image
+style_transfer_model = load_model()
+
+def perform_style_transfer(content_image, style_image):
+  # Convert to float32 numpy array, add batch dimension, and normalize to range [0, 1]
+    content_image = tf.convert_to_tensor(content_image, np.float32)[tf.newaxis, ...] / 255.
+    style_image = tf.convert_to_tensor(style_image, np.float32)[tf.newaxis, ...] / 255.
     
+    output = style_transfer_model(content_image, style_image)
+    stylized_image = output[0]
     
-def infer(original_image):
-    image = keras.preprocessing.image.img_to_array(original_image)
-    image = image.astype("float32") / 255.0
-    image = np.expand_dims(image, axis=0)
-    output = model.predict(image)
-    output = get_enhanced_image(image, output)
-    output_image = tf.cast((output[0, :, :, :] * 255), dtype=np.uint8)    
-    output_image = Image.fromarray(output_image.numpy())
-    return output_image
-    
+    return Image.fromarray(np.uint8(stylized_image[0] * 255))
 
-iface = gr.Interface(
-    fn=infer,
-    title="Zero-DCE for low-light image enhancement",
-    description = "Implementing Zero-Reference Deep Curve Estimation for low-light image enhancement.",
-    inputs=[gr.inputs.Image(label="Original Image", type="pil")],
-    outputs=[gr.outputs.Image(label="Enhanced Image", type="numpy")],
-    examples=examples,
-    article = "**Original Author**: [Soumik Rakshit](https://github.com/soumik12345) <br>**HF Contribution**: [Harveen Singh Chadha](https://github.com/harveenchadha)<br>",
-    ).launch(debug=True, enable_queue=False, cache_examples=True)
+# Upload content and style images.
+content_image = st.file_uploader("Upload a content image")
+style_image = st.file_uploader("Upload a style image")
+
+# default images
+st.write("Or you can choose from the following examples")
+col1, col2, col3,col4 = st.columns(4)
+
+if col1.button("Couple on bench"):
+  content_image = "examples/couple_on_bench.jpeg"
+  style_image = "examples/starry_night.jpeg"
+
+if col2.button("Couple Walking"):
+  content_image = "examples/couple_walking.jpeg"
+  style_image = "examples/couple_watercolor.jpeg"
+
+if col3.button("Golden Gate Bridge"):
+  content_image = "examples/golden_gate_bridge.jpeg"
+  style_image = "examples/couple_watercolor.jpeg"
+
+if col4.button("Joshua Tree"):
+  content_image = "examples/joshua_tree.jpeg"
+  style_image = "examples/starry_night.jpeg"
+
+
+
+if style_image and content_image is not None:
+  col1, col2 = st.columns(2)
+
+  content_image = Image.open(content_image)
+  # It is recommended that the style image is about 256 pixels (this size was used when training the style transfer network).
+  style_image = Image.open(style_image).resize((256, 256))
+
+  col1.header("Content Image")
+  col1.image(content_image, use_column_width=True)
+  col2.header("Style Image")
+  col2.image(style_image, use_column_width=True)
+
+  output_image=perform_style_transfer(content_image, style_image)
+
+  st.header("Output: Style transfer Image")
+  st.image(output_image, use_column_width=True)
+
+# # scroll down to see the references
+# st.markdown("**References**")
+
+# st.markdown("<a href='https://arxiv.org/abs/1705.06830' target='_blank'>1. Exploring the structure of a real-time, arbitrary neural artistic stylization network</a>", unsafe_allow_html=True)
+
+# st.markdown("<a href='https://www.tensorflow.org/hub/tutorials/tf2_arbitrary_image_stylization' target='_blank'>2. Tutorial to implement Fast Neural Style Transfer using the pretrained model from TensorFlow Hub</a>  \n", unsafe_allow_html=True)
+
+# st.markdown("<a href='https://huggingface.co/spaces/luca-martial/neural-style-transfer' target='_blank'>3. The idea to build a neural style transfer application was inspired from this Hugging Face Space </a>", unsafe_allow_html=True)

@@ -13,11 +13,11 @@ profile_image = Image.open("264827932_747332529567316_8091726915573986136_n.jpg"
 
 
 # Define the size of the circular image holder
-size = st.sidebar.slider("Image Size", min_value=50, max_value=500, value=200, step=10)
+# size = st.sidebar.slider("Image Size", min_value=50, max_value=500, value=200, step=10)
 
-# Define the border width and color of the circular image holder
-border_width = st.sidebar.slider("Border Width", min_value=0, max_value=50, value=10, step=1)
-border_color = st.sidebar.color_picker("Border Color", value="#ffffff")
+# # Define the border width and color of the circular image holder
+# border_width = st.sidebar.slider("Border Width", min_value=0, max_value=50, value=10, step=1)
+# border_color = st.sidebar.color_picker("Border Color", value="#ffffff")
 
 # Define the background color of the circular image holder
 background_color = st.sidebar.color_picker("Background Color", value="#dddddd")
@@ -38,10 +38,10 @@ image_masked = ImageOps.fit(image_resized, mask.size, centering=(0.5, 0.5))
 image_masked.putalpha(mask)
 
 # Create a background image
-background_image = Image.new("RGBA", (size, size), background_color)
+background_image = Image.new("RGBA", (150, 150), "#dddddd")
 
 # Add the border to the image
-border_image = ImageOps.expand(image_masked, border=border_width, fill=border_color)
+border_image = ImageOps.expand(image_masked, border=9, fill="#dddddd")
 
 # Combine the background image and border image
 final_image = Image.alpha_composite(background_image, border_image)

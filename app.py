@@ -26,10 +26,10 @@ profile_image = Image.open("264827932_747332529567316_8091726915573986136_n.jpg"
 image_array = np.array(profile_image)
 
 # Resize the image to fit the circular image holder
-image_resized = Image.fromarray(image_array).resize((size, size))
+image_resized = Image.fromarray(image_array).resize((150, 150))
 
 # Create a circular mask
-mask = Image.new("L", (size, size), 0)
+mask = Image.new("L", (150, 150), 0)
 draw = ImageDraw.Draw(mask)
 draw.ellipse((0, 0, 150, 150), fill=255)
 

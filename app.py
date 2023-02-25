@@ -91,7 +91,7 @@ if style_image and content_image is not None:
   output_image=perform_style_transfer(content_image, style_image)
 
   st.header("Generated Output image: Style transfer")
-  st.image(output_image, use_column_width=True)
+  st.image(output_image, use_column_width=False)
 
 # # scroll down to see the references
 st.markdown("**Colab Notebook Links and References**")

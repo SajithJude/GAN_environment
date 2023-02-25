@@ -12,44 +12,8 @@ st.write("By Suhith")
 profile_image = Image.open("264827932_747332529567316_8091726915573986136_n.jpg").resize((150, 150))
 
 
-# Define the size of the circular image holder
-# size = st.sidebar.slider("Image Size", min_value=50, max_value=500, value=200, step=10)
-
-# # Define the border width and color of the circular image holder
-# border_width = st.sidebar.slider("Border Width", min_value=0, max_value=50, value=10, step=1)
-# border_color = st.sidebar.color_picker("Border Color", value="#ffffff")
-
-# Define the background color of the circular image holder
-# background_color = st.sidebar.color_picker("Background Color", value="#dddddd")
-
-# Convert the image to a numpy array
-image_array = np.array(profile_image)
-
-# Resize the image to fit the circular image holder
-image_resized = Image.fromarray(image_array).resize((150, 150))
-
-# Create a circular mask
-mask = Image.new("L", (150, 150), 0)
-draw = Image.Draw(mask)
-draw.ellipse((0, 0, 150, 150), fill=255)
-
-# Apply the circular mask to the image
-image_masked = ImageOps.fit(image_resized, mask.size, centering=(0.5, 0.5))
-image_masked.putalpha(mask)
-
-# Create a background image
-background_image = Image.new("RGBA", (150, 150), "#dddddd")
-
-# Add the border to the image
-border_image = ImageOps.expand(image_masked, border=9, fill="#dddddd")
-
-# Combine the background image and border image
-final_image = Image.alpha_composite(background_image, border_image)
-
-# Display the final circular image holder
-st.image(final_image, caption="Developer Image", use_column_width=True)
 # Define the sidebar content
-# st.sidebar.image(profile_image, use_column_width=True)
+st.sidebar.image(profile_image, use_column_width=True)
 st.sidebar.title("Suhith")
 st.sidebar.write("Final Year Undergraduate")
 st.sidebar.write("IIT (University of Westminster)")

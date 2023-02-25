@@ -20,7 +20,7 @@ profile_image = Image.open("264827932_747332529567316_8091726915573986136_n.jpg"
 # border_color = st.sidebar.color_picker("Border Color", value="#ffffff")
 
 # Define the background color of the circular image holder
-background_color = st.sidebar.color_picker("Background Color", value="#dddddd")
+# background_color = st.sidebar.color_picker("Background Color", value="#dddddd")
 
 # Convert the image to a numpy array
 image_array = np.array(profile_image)
@@ -31,7 +31,7 @@ image_resized = Image.fromarray(image_array).resize((size, size))
 # Create a circular mask
 mask = Image.new("L", (size, size), 0)
 draw = ImageDraw.Draw(mask)
-draw.ellipse((0, 0, size, size), fill=255)
+draw.ellipse((0, 0, 150, 150), fill=255)
 
 # Apply the circular mask to the image
 image_masked = ImageOps.fit(image_resized, mask.size, centering=(0.5, 0.5))

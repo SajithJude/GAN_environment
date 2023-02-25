@@ -40,7 +40,7 @@ style_image = st.file_uploader("Upload Image of a foggy environment")
 
 # default images
 
-st.header("Drag and Drop example images bellow if you dont have any images to upload")
+st.header("Drag and Drop example images bellow if there are no images in your device")
 
 cola, colb = st.columns(2)
 

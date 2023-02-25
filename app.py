@@ -48,7 +48,7 @@ image2 = Image.open("download (2).jpg").resize((150, 150))
 st.image(image, caption="Mangrove Image", use_column_width=True)
 st.download_button(label="Download Mangrove", data=image_file)
 
-st.image(image, caption="Foggy Image", use_column_width=True)
+st.image(image2, caption="Foggy Image", use_column_width=True)
 st.download_button(label="Download foggy", data=image_file)
 
 # col1, col2, col3,col4 = st.columns(4)
